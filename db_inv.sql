@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 01-08-2025 a las 02:14:51
+-- Tiempo de generación: 04-08-2025 a las 21:11:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -29,15 +29,15 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `categorias` (
   `id_categorias` int(15) NOT NULL,
-  `cat_nombre` varchar(50) NOT NULL,
-  `cat_descripcion` varchar(50) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `categorias`
 --
 
-INSERT INTO `categorias` (`id_categorias`, `cat_nombre`, `cat_descripcion`) VALUES
+INSERT INTO `categorias` (`id_categorias`, `nombre`, `descripcion`) VALUES
 (1, 'Crasuláceas', 'suculentas de las especies Echeverias, Sedums'),
 (2, 'Aizoáceas', 'suculentas Lithops o piedras vivas'),
 (3, 'Cactáceas', 'Cactus ornamentales');
@@ -51,14 +51,14 @@ INSERT INTO `categorias` (`id_categorias`, `cat_nombre`, `cat_descripcion`) VALU
 CREATE TABLE `existencias` (
   `id_existencias` int(11) NOT NULL,
   `id_productos` int(11) NOT NULL,
-  `exi_cantidad` int(11) NOT NULL
+  `cantidad` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `existencias`
 --
 
-INSERT INTO `existencias` (`id_existencias`, `id_productos`, `exi_cantidad`) VALUES
+INSERT INTO `existencias` (`id_existencias`, `id_productos`, `cantidad`) VALUES
 (1, 1, 97),
 (2, 2, 65),
 (3, 3, 50),
@@ -74,16 +74,16 @@ INSERT INTO `existencias` (`id_existencias`, `id_productos`, `exi_cantidad`) VAL
 CREATE TABLE `productos` (
   `id_productos` int(15) NOT NULL,
   `id_categorias` int(15) NOT NULL,
-  `pro_nombre` varchar(50) NOT NULL,
-  `pro_descripcion` varchar(200) NOT NULL,
-  `pro_precio` decimal(15,2) NOT NULL
+  `nombre` varchar(50) NOT NULL,
+  `descripcion` varchar(200) NOT NULL,
+  `precio` decimal(15,2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `productos`
 --
 
-INSERT INTO `productos` (`id_productos`, `id_categorias`, `pro_nombre`, `pro_descripcion`, `pro_precio`) VALUES
+INSERT INTO `productos` (`id_productos`, `id_categorias`, `nombre`, `descripcion`, `precio`) VALUES
 (1, 2, 'Planta Piedra', 'Lithops karasmontana: especie de planta suculenta perteneciente a la familia Aizoaceae nativa de Namibia.', 10000.00),
 (2, 1, 'Rosa de Alabastro', 'La Echeveria elegans o rosa de alabastro es una de las suculentas más bonitas y conocidas del mundo pertenenciente a la familia Crassulaceae', 8500.00),
 (3, 1, 'Cola de borrego', 'Sedum morganianum es una especie de planta suculenta, nativa del sur de México.pertenece a la familia Crassulaceae', 8500.00),
@@ -98,16 +98,16 @@ INSERT INTO `productos` (`id_productos`, `id_categorias`, `pro_nombre`, `pro_des
 
 CREATE TABLE `ventas` (
   `id_ventas` int(15) NOT NULL,
-  `ven_fecha` varchar(50) NOT NULL,
-  `ven_valor` decimal(30,2) NOT NULL,
-  `ven_nombre_cliente` varchar(50) NOT NULL
+  `fecha` varchar(50) NOT NULL,
+  `valor` decimal(30,2) NOT NULL,
+  `nombre_cliente` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `ventas`
 --
 
-INSERT INTO `ventas` (`id_ventas`, `ven_fecha`, `ven_valor`, `ven_nombre_cliente`) VALUES
+INSERT INTO `ventas` (`id_ventas`, `fecha`, `valor`, `nombre_cliente`) VALUES
 (1, '30-07-2025', 38500.00, 'Victor Sanchez');
 
 -- --------------------------------------------------------
@@ -120,16 +120,16 @@ CREATE TABLE `ven_productos` (
   `id_ven_productos` int(11) NOT NULL,
   `id_ventas` int(15) NOT NULL,
   `id_productos` int(15) NOT NULL,
-  `venpro_cantidad` int(15) NOT NULL,
-  `venpro_precio_uni` decimal(30,2) NOT NULL,
-  `subtotal` decimal(10,2) GENERATED ALWAYS AS (`venpro_cantidad` * `venpro_precio_uni`) STORED
+  `cantidad` int(15) NOT NULL,
+  `precio_unidad` decimal(30,2) NOT NULL,
+  `subtotal` decimal(10,2) GENERATED ALWAYS AS (`cantidad` * `precio_unidad`) STORED
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `ven_productos`
 --
 
-INSERT INTO `ven_productos` (`id_ven_productos`, `id_ventas`, `id_productos`, `venpro_cantidad`, `venpro_precio_uni`) VALUES
+INSERT INTO `ven_productos` (`id_ven_productos`, `id_ventas`, `id_productos`, `cantidad`, `precio_unidad`) VALUES
 (1, 1, 1, 3, 10000.00),
 (2, 1, 4, 1, 8500.00);
 
